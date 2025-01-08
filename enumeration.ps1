@@ -8,4 +8,11 @@ $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain
 $PDC = $domainObj.PdcRoleOwner.Name
 
 # Print the $PDC variable
-$PDC
+#$PDC
+
+# Store the Distinguished Name variable into the $DN variable
+$DN = ([adsi]'').distinguishedName
+
+# Print the $DN variable
+$DN
+
