@@ -14,5 +14,11 @@ $PDC = $domainObj.PdcRoleOwner.Name
 $DN = ([adsi]'').distinguishedName
 
 # Print the $DN variable
-$DN
+#$DN
 
+# Store the $PDC and $DN variables, prefixed with "LDAP://" to use the LDAP ADsPath in order to communicate with the AD service. 
+# LDAP://HostName[:PortNumber][/DistinguishedName]
+# if the port is not the default, the path must be changed 
+
+$LDAP = "LDAP://$PDC/$DN"
+$LDAP
