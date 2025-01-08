@@ -2,4 +2,10 @@
 $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 
 # Print the variable
-$domainObj
+#$domainObj
+
+# Store the PdcRoleOwner name to the $PDC variable
+$PDC = $domainObj.PdcRoleOwner.Name
+
+# Print the $PDC variable
+$PDC
