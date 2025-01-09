@@ -30,4 +30,9 @@ $direntry = New-Object System.DirectoryServices.DirectoryEntry($LDAP)
 # $direntry is the root, then, the next list will print all objects from this AD.
 
 $dirsearcher = New-Object System.DirectoryServices.DirectorySearcher($direntry)
+
+#add a filter samAccountType 0x30000000 (decimal 805306368) to enumerate only all users 
+
+$dirsearcher.filter="samAccountType=805306368"
+
 $dirsearcher.FindAll()
