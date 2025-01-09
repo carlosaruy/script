@@ -35,4 +35,17 @@ $dirsearcher = New-Object System.DirectoryServices.DirectorySearcher($direntry)
 
 $dirsearcher.filter="samAccountType=805306368"
 
-$dirsearcher.FindAll()
+# now iterates in all object retrieved, and prints line by line the properties for each.
+#$dirsearcher.FindAll()
+
+$result = $dirsearcher.FindAll()
+
+Foreach($obj in $result)
+{
+    Foreach($prop in $obj.Properties)
+    {
+        $prop
+    }
+
+    Write-Host "-------------------------------"
+}
