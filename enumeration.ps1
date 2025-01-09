@@ -38,13 +38,18 @@ $dirsearcher.filter="samAccountType=805306368"
 # now iterates in all object retrieved, and prints line by line the properties for each.
 #$dirsearcher.FindAll()
 
+#add a filter, for users, the user that has name jeffadmin
+$dirsearcher.filter="name=jeffadmin"
+
 $result = $dirsearcher.FindAll()
 
 Foreach($obj in $result)
 {
     Foreach($prop in $obj.Properties)
     {
-        $prop
+	#print only the groups of what is member
+        #$prop
+	$prop.memberof
     }
 
     Write-Host "-------------------------------"
