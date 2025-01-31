@@ -18,13 +18,16 @@ function Get-GroupTree {
     param (
         [Parameter(Mandatory)]
         [object]$Groups,
-        [int]$IndentLevel = 0
+        [int]$IndentLevel = 0,
+        [bool]$invocacionRecursiva = $false
     )
 
     foreach ($group in $Groups) {
-        # Mostrar el grupo principal
-        $groupName = $group.Properties.cn
-        Write-Output (" " * $IndentLevel + "GRUPO: " + $groupName)
+        # Mostrar el grupo principal solo si no es una invocación recursiva
+        if (-not $invocacionRecursiva) {
+            $groupName = $group.Properties.cn
+            Write-Output (" " * $IndentLevel + "GRUPO: " + $groupName)
+        }
 
         # Obtener los miembros del grupo
         $members = $group.Properties.member
@@ -45,8 +48,8 @@ function Get-GroupTree {
                 if ($objectClass -contains "group") {
                     # Mostrar el grupo anidado
                     Write-Output (" " * ($IndentLevel + 2) + ".+" + $($memberObject.Properties["cn"][0]))
-                    # Procesar recursivamente el grupo anidado
-                    Get-GroupTree -Groups @($memberObject) -IndentLevel ($IndentLevel + 4)
+                    # Procesar recursivamente el grupo anidado con invocacionRecursiva = $true
+                    Get-GroupTree -Groups @($memberObject) -IndentLevel ($IndentLevel + 4) -invocacionRecursiva $true
                 } elseif ($objectClass -contains "user") {
                     # Mostrar el usuario
                     Write-Output (" " * ($IndentLevel + 2) + ".-" + $($memberObject.Properties["cn"][0]))
@@ -60,4 +63,5 @@ function Get-GroupTree {
         }
     }
 }
+
 
